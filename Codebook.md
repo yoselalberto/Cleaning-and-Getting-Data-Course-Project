@@ -6,7 +6,7 @@ The id of the subject
 
 ## Activity
 
-Activity name
+Activity name: LAYING, SITTING, STANDING, WALKING, WALKING_DOWNSTAIRS, WALKING_UPSTAIRS 
 
 ## Variables
 
