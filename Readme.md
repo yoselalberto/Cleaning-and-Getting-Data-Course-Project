@@ -8,7 +8,8 @@ The script do the following:
 3. Load all files of interest  
 4. Add variable names  
 5. Add subject of each observation  
-6. It add decriptive activity names   
+6. It add descriptive activity names   
 7. Merges train and test data   
-8. Extract variables of interest, turns data into a long tidy data frame, compute the mean of each variable for each activity for each subject  
+8. Extract variables of interest  
+9. Compute the mean of each variable for each activity for each subject  
 9. Finaly, the data is exported  
