@@ -10,7 +10,7 @@ Activity name, posible values: LAYING, SITTING, STANDING, WALKING, WALKING_DOWNS
 
 ## variable
 
-The column variable contains t features of interest, those ones containing either `mean` or `std` in the original dataset
+The column variable contains the features of interest, those ones containing either `mean` or `std` in the original dataset
 
 ## average
 
