@@ -45,15 +45,22 @@ test  <- subject_test  %>% rename(subject = X1) %>% bind_cols(test_raw)
 
 # add activity ------------------------------------------------------------
 
+# vector to replace integers with labels
 activity_vector <- activity$X2
 names(activity_vector) <- activity$X1
-
+# train
 train_labeled <- labels_train %>% rename(activity = X1) %>% 
     mutate(activity = str_replace_all(activity, pattern = activity_vector)) %>%
     bind_cols(train)
+# test
+test_labeled <- labels_test %>% rename(activity = X1) %>% 
+    mutate(activity = str_replace_all(activity, pattern = activity_vector)) %>%
+    bind_cols(test)
 
 
+# merging -----------------------------------------------------------------
 
+data <- rbind(train_labeled, test_labeled)
 
 
 
