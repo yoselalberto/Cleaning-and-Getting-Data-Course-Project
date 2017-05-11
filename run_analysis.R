@@ -4,7 +4,7 @@
 
 # settings ----------------------------------------------------------------
 
-library(readr)   # reading and writing data
+library(readr)   # reading data
 library(dplyr)   # manipulating data
 library(tidyr)   # reshaping data
 library(stringr) # string manipulation
@@ -106,10 +106,4 @@ data_averages <- data %>%
 
 # output ------------------------------------------------------------------
 
-write_csv(data_averages, "data_tidy.csv")
-
-
-
-
-
-
+write.table(data_averages, "data_tidy.txt", row.names = FALSE)
