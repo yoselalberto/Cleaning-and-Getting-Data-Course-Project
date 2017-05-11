@@ -1,17 +1,18 @@
-# script to load, work, and clean data for the Course Project of the 'Getting and cleaning Data'
+# script to collect, load, work, and clean data for the Course Project of the 'Getting and cleaning Data'
 
 
 
 # settings ----------------------------------------------------------------
 
-library(readr)
-library(dplyr)
-library(stringr)
+library(readr)   # reading and writing data
+library(dplyr)   # manipulating data
+library(tidyr)   # reshaping data
+library(stringr) # string manipulation
 
 
 # collecting data ---------------------------------------------------------
 
-# folder name
+# folder with data
 folder_name <- "UCI HAR Dataset"
 folder_name_zip <- "UCI HAR Dataset.zip" 
 # downloads data, if not present
@@ -28,7 +29,7 @@ if (!file.exists(folder_name)) {
 
 # loading data ------------------------------------------------------------
 
-# sets 
+# measures
 train_raw <- read_table("UCI HAR Dataset/train/X_train.txt", col_names = FALSE)
 test_raw  <- read_table("UCI HAR Dataset/test/X_test.txt", col_names = FALSE)
 # labels
@@ -77,7 +78,30 @@ test_labeled <- labels_test %>% rename(activity = X1) %>%
 
 # merging -----------------------------------------------------------------
 
-data <- rbind(train_labeled, test_labeled)
+data_merged <- rbind(train_labeled, test_labeled)
+
+
+# extract mean and standard deviations ------------------------------------
+
+# position of such variables
+position_mean_or_std <- str_detect(features$X2, pattern = "(mean)|(std)") %>% which() + 2
+data <- data_merged[, c(1, 2, position_mean_or_std)]
+# improve variable names
+names(data) <- str_replace_all(string = names(data), 
+                               pattern = c("\\(|\\)|-" = "", "mean" = "Mean", "std" = "Std"))
+
+
+#  average of each variable for each activity and each subject ------------
+
+data_averages <- data %>% gather(key = variable, value = value, -activity, -subject) %>% 
+    group_by(activity, subject, variable) %>% 
+    summarise(average = mean(value, na.rm = TRUE))
+
+
+# output ------------------------------------------------------------------
+
+write_csv(data_averages, "data_tidy.csv")
+
 
 
 
