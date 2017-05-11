@@ -101,7 +101,8 @@ names(data) <- str_replace_all(string = names(data),
 data_averages <- data %>%
     gather(key = variable, value = value, -activity, -subject) %>% 
     group_by(activity, subject, variable) %>% 
-    summarise(average = mean(value, na.rm = TRUE))
+    summarise(average = mean(value, na.rm = TRUE)) %>% 
+    select(subject, activity, everything())
 
 
 # output ------------------------------------------------------------------

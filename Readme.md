@@ -12,4 +12,4 @@ The script do the following:
 7. Merges train and test data   
 8. Extract variables of interest  
 9. Compute the mean of each variable for each activity for each subject  
-9. Finaly, the data is exported  
+9. Finally, the data is exported  
