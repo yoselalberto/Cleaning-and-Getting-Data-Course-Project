@@ -1,4 +1,4 @@
-# 
+# script to load, work, and clean data for the Course Project of the 'Getting and cleaning Data'
 
 
 
@@ -6,24 +6,41 @@
 
 library(readr)
 library(dplyr)
-library(tidyr)
 library(stringr)
 
-# loading -----------------------------------------------------------------
+
+# collecting data ---------------------------------------------------------
+
+# folder name
+folder_name <- "UCI HAR Dataset"
+folder_name_zip <- "UCI HAR Dataset.zip" 
+# downloads data, if not present
+if (!file.exists(folder_name)) {
+    # download info
+    url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    download.file(url, folder_name_zip)
+}
+# uncompress .zip, if downloaded by first time
+if (!file.exists(folder_name)) {
+    unzip(folder_name_zip)
+}
+
+
+# loading data ------------------------------------------------------------
 
 # sets 
-train_raw <- read_table("UCI_HAR_Dataset/train/X_train.txt", col_names = FALSE)
-test_raw  <- read_table("UCI_HAR_Dataset/test/X_test.txt", col_names = FALSE)
+train_raw <- read_table("UCI HAR Dataset/train/X_train.txt", col_names = FALSE)
+test_raw  <- read_table("UCI HAR Dataset/test/X_test.txt", col_names = FALSE)
 # labels
-labels_train <- read_csv("UCI_HAR_Dataset/train/y_train.txt", col_names = FALSE)
-labels_test  <- read_csv("UCI_HAR_Dataset/test/y_test.txt", col_names = FALSE)
+labels_train <- read_csv("UCI HAR Dataset/train/y_train.txt", col_names = FALSE)
+labels_test  <- read_csv("UCI HAR Dataset/test/y_test.txt", col_names = FALSE)
 # subjets
-subject_train <- read_csv("UCI_HAR_Dataset/train/subject_train.txt",  col_names = FALSE)
-subject_test  <- read_csv("UCI_HAR_Dataset/test/subject_test.txt",  col_names = FALSE)
+subject_train <- read_csv("UCI HAR Dataset/train/subject_train.txt",  col_names = FALSE)
+subject_test  <- read_csv("UCI HAR Dataset/test/subject_test.txt",  col_names = FALSE)
 # features
-features_raw  <- read_table2("UCI_HAR_Dataset/features.txt", col_names = FALSE)
+features_raw  <- read_table2("UCI HAR Dataset/features.txt", col_names = FALSE)
 # activity names
-activity <- read_table("UCI_HAR_Dataset/activity_labels.txt", col_names = FALSE)
+activity <- read_table("UCI HAR Dataset/activity_labels.txt", col_names = FALSE)
 
 
 # preprocesing ------------------------------------------------------------
